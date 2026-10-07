@@ -1,0 +1,1224 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>NSZivo</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#eee;overflow-x:hidden;font-family:Arial,sans-serif}
+.app{max-width:480px;margin:auto;background:#fff;min-height:100vh}
+.hidden{display:none!important}
+.login{min-height:100vh;padding:55px 25px;text-align:center;background:white}
+.logoBox{font-size:34px;font-weight:bold;margin:30px 0}
+.logoBox span{color:#1264d8}
+input{width:100%;padding:14px;margin:7px 0;border:1px solid #ccc;border-radius:8px;font-size:16px}
+.btn{width:100%;padding:14px;border:0;border-radius:8px;background:#1769e0;color:white;font-size:17px;margin-top:10px}
+.small{color:#666;font-size:14px;margin-top:18px}
+header{height:52px;border-bottom:1px solid #ddd;display:flex;align-items:center;justify-content:space-between;padding:0 15px;position:sticky;top:0;background:#fff;z-index:5}
+.brand{font-size:24px;font-weight:bold}
+.icons{font-size:25px}
+.stories{display:flex;gap:10px;padding:8px;overflow:auto;border-bottom:1px solid #ddd}
+.story{text-align:center;min-width:65px;font-size:12px}
+.circle{width:58px;height:58px;border-radius:50%;background:#1769e0;color:#fff;display:flex;align-items:center;justify-content:center;margin:auto;font-weight:bold;font-size:18px}
+.posthead{display:flex;align-items:center;padding:12px}
+.avatar{width:40px;height:40px;border-radius:50%;background:#222;color:white;display:flex;align-items:center;justify-content:center;font-weight:bold}
+.name{margin-left:10px;font-weight:bold}
+.more{margin-left:auto}
+.photo{height:280px;background:linear-gradient(135deg,#ddd,#777);display:flex;align-items:center;justify-content:center;font-size:60px;color:white}
+.actions{padding:10px;font-size:27px}
+.actions span{margin-right:15px}
+.caption{padding:0 12px 15px}
+nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;height:60px;background:#fff;border-top:1px solid #ddd;display:flex;justify-content:space-around;align-items:center;font-size:25px}
+nav button{border:0;background:none;font-size:24px}
+.profile{padding:25px 15px 80px}
+.profileTop{display:flex;align-items:center}
+.bigavatar{width:85px;height:85px;border-radius:50%;background:#1769e0;color:white;display:flex;align-items:center;justify-content:center;font-size:30px;font-weight:bold}
+.stats{display:flex;gap:25px;margin-left:25px;text-align:center}
+.edit{width:100%;padding:10px;margin-top:20px;border:1px solid #aaa;background:white;border-radius:7px}
+
+/* ===== NSZIVO BASE MOBILE LAYOUT ===== */
+html,body{
+  margin:0;
+  padding:0;
+  width:100%;
+  min-height:100%;
+  background:#f2f3f5;
+}
+
+body{
+  overflow-x:hidden;
+  font-family:Arial,sans-serif;
+}
+
+.app{
+  width:100%;
+  max-width:480px;
+  min-height:100vh;
+  margin:0 auto;
+  background:#fff;
+  padding-bottom:76px;
+  position:relative;
+}
+
+header{
+  width:100%;
+  height:56px;
+  padding:0 14px;
+  position:sticky;
+  top:0;
+  z-index:20;
+  background:#fff;
+  border-bottom:1px solid #e5e5e5;
+}
+
+.brand{
+  font-size:21px;
+  white-space:nowrap;
+}
+
+.icons{
+  font-size:22px;
+  white-space:nowrap;
+}
+
+.stories{
+  width:100%;
+  min-height:94px;
+  padding:10px 8px;
+  gap:12px;
+  background:#fff;
+  border-bottom:1px solid #eee;
+}
+
+.story{
+  min-width:64px;
+  line-height:18px;
+}
+
+.circle{
+  width:58px;
+  height:58px;
+  margin-bottom:4px;
+}
+
+#home{
+  width:100%;
+  background:#f7f7f7;
+}
+
+#nsPostList{
+  width:100%;
+  padding:8px !important;
+}
+
+#nsPostList > div{
+  width:100%;
+  margin:0 0 12px 0 !important;
+  border-radius:12px !important;
+  overflow:hidden;
+}
+
+#realReelsSection{
+  width:100%;
+  min-height:calc(100vh - 132px);
+  padding:12px 10px 20px !important;
+  background:#f7f7f7;
+}
+
+#realReelsSection h2{
+  margin:6px 4px 14px;
+  font-size:22px;
+}
+
+#realReelsList{
+  width:100%;
+}
+
+#createScreen,
+#notificationBox{
+  width:100%;
+  min-height:calc(100vh - 132px);
+  padding:16px !important;
+  background:#f7f7f7;
+}
+
+#createScreen h2,
+#notificationBox h2{
+  margin:4px 0 16px;
+}
+
+#createScreen textarea,
+#createScreen select,
+#createScreen input{
+  width:100% !important;
+  max-width:100%;
+  border:1px solid #d5d5d5;
+  border-radius:10px;
+  background:#fff;
+}
+
+#createScreen button{
+  border:0;
+  border-radius:10px;
+  background:#1769e0;
+  color:#fff;
+  font-size:16px;
+}
+
+#profile{
+  width:100%;
+  min-height:calc(100vh - 132px);
+  padding:10px 8px 20px !important;
+  background:#f7f7f7;
+}
+
+#profileHeader{
+  width:100% !important;
+  margin:0 !important;
+  border-radius:14px !important;
+}
+
+#myRealPosts{
+  width:100%;
+}
+
+#nsWalletBox{
+  margin:14px 0 !important;
+  width:calc(100% - 0px);
+}
+
+#followListBox{
+  width:100%;
+  padding:10px;
+}
+
+#bottomNav,
+nav#bottomNav{
+  position:fixed;
+  left:50%;
+  bottom:0;
+  transform:translateX(-50%);
+  width:100%;
+  max-width:480px;
+  height:68px;
+  padding:4px 3px;
+  z-index:100;
+  background:#fff;
+  border-top:1px solid #ddd;
+  box-shadow:0 -2px 8px rgba(0,0,0,.08);
+  display:flex;
+  align-items:center;
+  justify-content:space-around;
+}
+
+#bottomNav button{
+  flex:1;
+  height:58px;
+  min-width:0;
+  border:0;
+  background:transparent;
+  color:#222;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:2px;
+  font-size:22px;
+  padding:2px;
+}
+
+#bottomNav button small{
+  display:block;
+  font-size:10px;
+  line-height:12px;
+}
+
+#bottomNav button:active{
+  transform:scale(.94);
+}
+
+.hidden{
+  display:none !important;
+}
+
+@media(max-width:360px){
+  .brand{font-size:19px}
+  #bottomNav button{font-size:20px}
+  #bottomNav button small{font-size:9px}
+  .stories{gap:8px}
+}
+
+</style>
+</head>
+<body>
+
+
+<div id="login" class="login hidden">
+<div class="logoBox"><img src="ns_logo.png" style="width:140px;height:140px;object-fit:contain;"></div>
+<h2>Login to NSZivo</h2>
+<input id="loginMobile" type="tel" placeholder="Mobile Number">
+<input id="loginPassword" type="password" placeholder="Password">
+<button class="btn" onclick="login()">Login</button>
+<button class="btn" style="background:#fff;color:#1769e0;border:1px solid #1769e0;" onclick="showSignup()">Create New Account</button>
+<div class="small">पहले से account है तो Login करें</div>
+</div>
+
+<div id="signupScreen" class="login hidden">
+<div class="logoBox"><img src="ns_logo.png" style="width:140px;height:140px;object-fit:contain;"></div>
+<h2>Create NSZivo Account</h2>
+<input id="name" placeholder="आपका नाम">
+<input id="signupMobile" type="tel" placeholder="Mobile Number">
+<input id="signupPassword" type="password" placeholder="Password">
+<button class="btn" onclick="signup()">Sign Up</button>
+<button class="btn" style="background:#fff;color:#1769e0;border:1px solid #1769e0;" onclick="showLogin()">Already have an account? Login</button>
+<div class="small">अपना नया social profile बनाइए</div>
+</div>
+
+<div id="app" class="app">
+<header>
+<div class="brand">NSZivo</div>
+<div class="icons">♡　✉</div>
+</header>
+
+<div id="realReelsSection" class="hidden" style="padding:12px;">
+  <h2>🎬 Reels</h2>
+  <div id="realReelsList"></div>
+</div>
+
+<div id="home">
+<div class="stories">
+<div class="story"><div class="circle">+</div>Your Story</div>
+<div class="story"><div class="circle">R</div>Rahul</div>
+<div class="story"><div class="circle">A</div>Amit</div>
+<div class="story"><div class="circle">N</div>Neha</div>
+<div class="story"><div class="circle">P</div>Pooja</div>
+</div>
+
+<div id="nsPostList" style="padding:10px;"></div>
+<script>document.addEventListener("DOMContentLoaded",function(){if(typeof showNSPosts==="function")showNSPosts();});</script>
+
+</div>
+
+<div id="followListBox" class="hidden" style="margin:15px 0;"></div>
+<div id="profile" class="profile hidden">
+  <div id="profileHeader" style="background:white;padding:20px;margin:10px;border-radius:15px;text-align:center;">
+    <div id="profileAvatar" style="width:80px;height:80px;border-radius:50%;background:#ddd;margin:auto;display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:bold;">NS</div>
+    <h2 id="profileDisplayName">NSZivo</h2>
+    <p>
+  Followers: <b id="profileFollowersCount" onclick="loadNSFollowList('followers')" style="cursor:pointer;">0</b>
+  &nbsp;
+  Following: <b id="profileFollowingCount" onclick="loadNSFollowList('following')" style="cursor:pointer;">0</b>
+</p>
+    <div style="display:flex;gap:8px;justify-content:center;margin:10px 0;">
+      <button id="followBtn" onclick="toggleNSFollow()" style="padding:10px 18px;border:0;border-radius:10px;background:#1769e0;color:white;">Follow</button>
+    </div>
+
+    <input id="profileName" type="text" placeholder="Name" style="width:100%;padding:10px;box-sizing:border-box;margin:5px 0;">
+    <textarea id="profileBio" placeholder="Bio" style="width:100%;padding:10px;box-sizing:border-box;margin:5px 0;"></textarea>
+    <button onclick="saveNSProfile()" style="padding:10px 18px;">Save Profile</button>
+    <p id="profileMsg"></p>
+  </div>
+
+  <div id="myRealPosts" style="margin-top:15px;"></div>
+    <div id="nsWalletBox" style="margin:20px;padding:18px;border-radius:15px;background:#f5f5f5;border:1px solid #ddd;">
+  <h2>💰 NS Wallet</h2>
+  <p>Balance: ₹<span id="nsBalance">0</span></p>
+  <p>Total Earned: ₹<span id="nsTotalEarned">0</span></p>
+  <button onclick="loadNSWallet()">Refresh Wallet</button>
+</div>
+
+<script>
+async function loadNSWallet(){
+  try{
+    const res = await fetch("http://127.0.0.1:5007/api/wallet/" + (Number(localStorage.getItem("ns_user_id")) || 1));
+    const data = await res.json();
+
+    if(data.ok && data.wallet){
+      document.getElementById("nsBalance").textContent =
+        Number(data.wallet.balance || 0).toFixed(2);
+
+      document.getElementById("nsTotalEarned").textContent =
+        Number(data.wallet.total_earned || 0).toFixed(2);
+    }
+  }catch(e){
+    console.log("Wallet error:", e);
+  }
+}
+
+window.addEventListener("load", loadNSWallet);
+</script>
+
+
+
+<div id="nsEarningBox" style="margin:20px;padding:18px;border-radius:15px;background:#fff;border:1px solid #ddd;">
+  <h3>📈 Add Earning</h3>
+  <input id="nsEarningAmount" type="number" min="1" step="0.01"
+         placeholder="Earning ₹"
+         style="width:100%;padding:12px;box-sizing:border-box;margin:8px 0;">
+  <input id="nsEarningSource" type="text"
+         placeholder="Source / Reason"
+         style="width:100%;padding:12px;box-sizing:border-box;margin:8px 0;">
+  <button onclick="addNSEarning()" style="padding:12px 18px;">
+    Add Earning
+  </button>
+  <p id="nsEarningMessage"></p>
+</div>
+
+<script>
+async function addNSEarning(){
+  const amount = Number(document.getElementById("nsEarningAmount").value);
+  const source = document.getElementById("nsEarningSource").value.trim();
+  const msg = document.getElementById("nsEarningMessage");
+  const myId = Number(localStorage.getItem("ns_user_id") || 1);
+
+  if(!myId){
+    msg.textContent = "User तैयार है";
+    return;
+  }
+
+  if(!amount || amount <= 0){
+    msg.textContent = "सही earning amount डालें";
+    return;
+  }
+
+  try{
+    const res = await fetch("http://127.0.0.1:5007/api/earning", {
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({
+        user_id: myId,
+        amount: amount,
+        source: source || "NSZivo"
+      })
+    });
+
+    const data = await res.json();
+
+    if(data.ok){
+      msg.textContent = "Earning added ✓";
+      document.getElementById("nsEarningAmount").value = "";
+      document.getElementById("nsEarningSource").value = "";
+      loadNSWallet();
+    }else{
+      msg.textContent = data.message || "Earning failed";
+    }
+  }catch(e){
+    msg.textContent = "Server से connection नहीं हो पाया";
+    console.log(e);
+  }
+}
+</script>
+
+<div id="nsWithdrawBox" style="margin:20px;padding:18px;border-radius:15px;background:#fff;border:1px solid #ddd;">
+  <h3>📤 Withdraw Money</h3>
+  <input id="nsWithdrawAmount" type="number" min="1" step="1"
+         placeholder="Amount ₹"
+         style="width:100%;padding:12px;box-sizing:border-box;margin:8px 0;">
+  <button onclick="requestNSWithdrawal()"
+          style="padding:12px 18px;">
+    Withdraw
+  </button>
+  <p id="nsWithdrawMessage"></p>
+</div>
+
+<script>
+async function requestNSWithdrawal(){
+  const amount = Number(document.getElementById("nsWithdrawAmount").value);
+  const msg = document.getElementById("nsWithdrawMessage");
+
+  if(!amount || amount <= 0){
+    msg.textContent = "कृपया सही amount डालें";
+    return;
+  }
+
+  try{
+    const res = await fetch("http://127.0.0.1:5007/api/withdraw", {
+      method: "POST",
+      headers: {"Content-Type":"application/json"},
+      body: JSON.stringify({
+        user_id: Number(localStorage.getItem("ns_user_id")) || 1,
+        amount: amount
+      })
+    });
+
+    const data = await res.json();
+
+    if(data.ok){
+      msg.textContent = "Withdrawal request submitted ✓";
+      document.getElementById("nsWithdrawAmount").value = "";
+      loadNSWallet();
+    }else{
+      msg.textContent = data.message || "Withdrawal failed";
+    }
+  }catch(e){
+    msg.textContent = "Server से connection नहीं हो पाया";
+    console.log(e);
+  }
+}
+</script>
+
+
+</div>
+</div>
+
+<div id="createScreen" class="hidden" style="padding:15px;">
+  <h2>＋ Create</h2>
+  <textarea id="postText" placeholder="क्या शेयर करना चाहते हैं?" style="width:100%;height:100px;padding:12px;box-sizing:border-box;"></textarea>
+  <select id="postType" style="width:100%;padding:12px;margin:10px 0;">
+    <option value="post">📸 Post</option>
+    <option value="reel">🎬 Reel</option>
+  </select>
+  <input id="postMedia" type="file" accept="image/*,video/*" style="width:100%;margin:10px 0;">
+  <button onclick="createNSPost()" style="padding:12px 20px;">Publish</button>
+</div>
+
+<div id="notificationBox" class="hidden" style="padding:15px;">
+  <h2>♡ Notifications</h2>
+  <div id="notificationList"></div>
+</div>
+
+<nav id="bottomNav">
+  <button onclick="showHome()">⌂<small>Home</small></button>
+  <button onclick="showReels()">🎬<small>Reels</small></button>
+  <button onclick="showCreate()">＋<small>Create</small></button>
+  <button onclick="showNotifications()">♡<small>Alerts</small></button>
+  <button onclick="showProfile()">👤<small>Profile</small></button>
+</nav>
+
+
+<script>
+async function likeNSPost(postId){
+  const userId = Number(localStorage.getItem("ns_user_id") || 1);
+
+  if(!postId){
+    alert("Post ID नहीं मिली");
+    return;
+  }
+
+  try{
+    const r = await fetch(NS_API + "/api/like", {
+      method: "POST",
+      headers: {"Content-Type":"application/json"},
+      body: JSON.stringify({
+        post_id: Number(postId),
+        user_id: userId
+      })
+    });
+
+    const data = await r.json();
+
+    if(!data.ok){
+      alert(data.message || "Like नहीं हुआ");
+      return;
+    }
+
+    await showNSPosts();
+    if(typeof showRealReels === "function") showRealReels();
+
+  }catch(e){
+    console.error(e);
+    alert("Server से connection नहीं हो पाया");
+  }
+}
+
+
+function shareNSPost(index){
+  const posts = JSON.parse(localStorage.getItem("ns_posts") || "[]");
+  if(!posts[index]) return;
+
+  const text = posts[index].text || "NSZivo Post";
+  if(navigator.share){
+    navigator.share({
+      title: "NSZivo",
+      text: text
+    }).catch(()=>{});
+  }else{
+    navigator.clipboard.writeText(text);
+    alert("Post का text copy हो गया ✓");
+  }
+}
+
+async function commentNSPost(postId){
+  if(!postId){
+    alert("Post ID नहीं मिली");
+    return;
+  }
+
+  const comment = prompt("अपना Comment लिखें:");
+  if(!comment || !comment.trim()) return;
+
+  const userId = Number(localStorage.getItem("ns_user_id") || 1);
+
+  try{
+    const r = await fetch(NS_API + "/api/comments", {
+      method: "POST",
+      headers: {"Content-Type":"application/json"},
+      body: JSON.stringify({
+        post_id: Number(postId),
+        user_id: userId,
+        text: comment.trim()
+      })
+    });
+
+    const data = await r.json();
+
+    if(!data.ok){
+      alert(data.error || data.message || "Comment save नहीं हुआ");
+      return;
+    }
+
+    alert("Comment added ✓");
+    await showNSPosts();
+    if(typeof showRealReels === "function") showRealReels();
+
+  }catch(e){
+    console.error(e);
+    alert("Server से connection नहीं हो पाया");
+  }
+}
+
+
+function showSignup(){
+  document.getElementById("login").classList.add("hidden");
+  document.getElementById("signupScreen").classList.remove("hidden");
+}
+
+function showLogin(){
+  document.getElementById("signupScreen").classList.add("hidden");
+  document.getElementById("login").classList.remove("hidden");
+}
+
+function openApp(name){
+ document.getElementById("login").classList.add("hidden");
+ document.getElementById("signupScreen").classList.add("hidden");
+ document.getElementById("app").classList.remove("hidden");
+ if(document.getElementById("postName")) document.getElementById("postName").innerText=name;
+ if(document.getElementById("captionName")) document.getElementById("captionName").innerText=name;
+ if(document.getElementById("profileName")) document.getElementById("profileName").innerText=name;
+ if(document.getElementById("profileAvatar")) document.getElementById("profileAvatar").innerText=name.substring(0,2).toUpperCase();
+}
+function like(el){
+ el.innerText=el.innerText==="♡"?"♥":"♡";
+ el.style.color=el.innerText==="♥"?"red":"";
+}
+function hideMainScreens(){
+  document.getElementById("home").classList.add("hidden");
+  document.getElementById("profile").classList.add("hidden");
+  document.getElementById("realReelsSection").classList.add("hidden");
+  document.getElementById("followListBox").classList.add("hidden");
+  document.getElementById("createScreen").classList.add("hidden");
+  document.getElementById("notificationBox").classList.add("hidden");
+}
+
+function showCreate(){
+  hideMainScreens();
+  document.getElementById("createScreen").classList.remove("hidden");
+}
+
+function showHome(){
+ hideMainScreens();
+ document.getElementById("home").classList.remove("hidden");
+}
+
+function showReels(){
+ hideMainScreens();
+ document.getElementById("realReelsSection").classList.remove("hidden");
+ showRealReels();
+}
+async function loadMyRealPosts(){
+  const myId=localStorage.getItem("ns_user_id") || "1";
+
+  try{
+    const r=await fetch("http://127.0.0.1:5007/api/posts");
+    const data=await r.json();
+
+    if(!data.ok) return;
+
+    const posts=data.posts.filter(
+      p=>String(p.user_id)===String(myId)
+    );
+
+    const box=document.getElementById("myRealPosts");
+    if(!box) return;
+
+    if(posts.length===0){
+      box.innerHTML="<p>अभी कोई Post नहीं है</p>";
+      return;
+    }
+
+    box.innerHTML=posts.map(p=>`
+      <div style="background:white;padding:12px;margin:10px 0;border-radius:12px;">
+        <b>${p.name || "NS User"}</b>
+        <p>${p.caption || ""}</p>
+        <small>${p.created_at || ""}</small>
+      </div>
+    `).join("");
+
+  }catch(e){
+    console.log("Real posts error",e);
+  }
+}
+
+async function showProfile(){
+  hideMainScreens();
+  document.getElementById("profile").classList.remove("hidden");
+
+  loadMyRealPosts();
+  updateMyPostCount();
+  updateMyFollowCounts();
+
+  const myId=Number(localStorage.getItem("ns_user_id") || 1);
+
+  try{
+    const r=await fetch(NS_API+"/api/profile/"+myId);
+    const data=await r.json();
+
+    if(data.ok && data.user){
+      const user=data.user;
+
+      localStorage.setItem("ns_name",user.name || "");
+      localStorage.setItem("ns_bio",user.bio || "");
+
+      const nameInput=document.getElementById("profileName");
+      const bioInput=document.getElementById("profileBio");
+      const displayName=document.getElementById("profileDisplayName");
+
+      if(nameInput) nameInput.value=user.name || "";
+      if(bioInput) bioInput.value=user.bio || "";
+      if(displayName) displayName.innerText=user.name || "NSZivo";
+    }
+  }catch(e){
+    console.error("Profile load error:",e);
+  }
+
+  loadRealFollowCount(myId);
+
+  document.getElementById("home").classList.add("hidden");
+  document.getElementById("profile").classList.remove("hidden");
+}
+
+
+function addNSNotification(text){
+  let notifications=JSON.parse(localStorage.getItem("ns_notifications") || "[]");
+  notifications.unshift({
+    text:text,
+    time:new Date().toLocaleString()
+  });
+  localStorage.setItem("ns_notifications",JSON.stringify(notifications));
+}
+
+async function showNotifications(){
+  const box=document.getElementById("notificationBox");
+  const list=document.getElementById("notificationList");
+
+  if(!box || !list) return;
+
+  hideMainScreens();
+  box.classList.remove("hidden");
+
+  const userId=Number(localStorage.getItem("ns_user_id") || 1);
+  const notifications=await loadRealNotifications(userId);
+
+  list.innerHTML=notifications.length
+    ? notifications.map(n => `
+        <div style="background:white;padding:10px;margin:7px 0;border-radius:10px;">
+          ${n.text || n.message || "Notification"}<br>
+          <small>${n.created_at || n.time || ""}</small>
+        </div>
+      `).join("")
+    : "<p>अभी कोई notification नहीं है।";
+}
+
+
+function updateFollowCounts(){
+  const following = JSON.parse(localStorage.getItem("ns_following") || "[]");
+  const posts = JSON.parse(localStorage.getItem("ns_posts") || "[]");
+
+  document.getElementById("followingCount").innerText = following.length;
+  document.getElementById("followersCount").innerText =
+    parseInt(localStorage.getItem("ns_followers") || "0");
+  document.getElementById("myPostsCount").innerText =
+    posts.filter(p => p.name === (localStorage.getItem("ns_name") || "NS User")).length;
+}
+
+function syncNSProfileDisplay(){
+  const name = localStorage.getItem("ns_name") || "NSZivo";
+  const el = document.getElementById("profileDisplayName");
+  if(el) el.innerText = name;
+
+  const fc = document.getElementById("profileFollowersCount");
+  const fg = document.getElementById("profileFollowingCount");
+
+  const mainFc = document.getElementById("followersCount");
+  const mainFg = document.getElementById("followingCount");
+
+  if(fc && mainFc) fc.innerText = mainFc.innerText;
+  if(fg && mainFg) fg.innerText = mainFg.innerText;
+}
+
+
+
+async function loadNSFollowList(type){
+  const userId=Number(localStorage.getItem("ns_profile_view_id") || localStorage.getItem("ns_user_id") || 1);
+  const box=document.getElementById("followListBox");
+
+  if(!box) return;
+
+  const endpoint=type==="followers"
+    ? "/api/followers/"+userId
+    : "/api/following/"+userId;
+
+  try{
+    const r=await fetch(NS_API+endpoint);
+    const data=await r.json();
+
+    box.classList.remove("hidden");
+
+    if(!data.ok || !data.users || !data.users.length){
+      box.innerHTML="<p>अभी कोई "+(type==="followers"?"Followers":"Following")+" नहीं है।</p>";
+      return;
+    }
+
+    box.innerHTML=data.users.map(u => `
+      <div style="background:white;padding:12px;margin:7px 0;border-radius:10px;">
+        <b>${u.name || "User"}</b><br>
+        <small>@${u.username || ""}</small>
+      </div>
+    `).join("");
+  }catch(e){
+    console.error("Follow list error:",e);
+    box.innerHTML="<p>Server से list नहीं मिल पाई।</p>";
+  }
+}
+
+async function toggleNSFollow(){
+  const btn=document.getElementById("followBtn");
+  const myId=Number(localStorage.getItem("ns_user_id") || 1);
+  const targetId=Number(localStorage.getItem("ns_profile_view_id") || 2);
+
+  if(!btn || myId === targetId) return;
+
+  const isFollowing=btn.dataset.following === "true";
+  const endpoint=isFollowing ? "/api/unfollow" : "/api/follow";
+
+  try{
+    const r=await fetch(NS_API+endpoint,{
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({
+        follower_id:myId,
+        following_id:targetId
+      })
+    });
+
+    const data=await r.json();
+
+    if(data.ok){
+      btn.dataset.following=isFollowing ? "false" : "true";
+      btn.innerText=isFollowing ? "Follow" : "Following ✓";
+      await loadRealFollowCount(targetId);
+    }else{
+      alert(data.message || "Follow action failed");
+    }
+  }catch(e){
+    console.error("Follow error:",e);
+    alert("Server से connection नहीं हो पाया");
+  }
+}
+
+
+async function loadRealFollowCount(userId){
+  try{
+    const r=await fetch(NS_API+"/api/follow-count/"+Number(userId));
+    const data=await r.json();
+
+    if(data.ok){
+      const followers=Number(data.followers || 0);
+      const following=Number(data.following || 0);
+
+      const fc=document.getElementById("profileFollowersCount");
+      const fg=document.getElementById("profileFollowingCount");
+
+      if(fc) fc.innerText=followers;
+      if(fg) fg.innerText=following;
+
+      const btn=document.getElementById("followBtn");
+      const myId=Number(localStorage.getItem("ns_user_id") || 1);
+
+      if(btn && myId !== Number(userId)){
+        btn.style.display="inline-block";
+      }
+    }
+  }catch(e){
+    console.error("Follow count error:",e);
+  }
+}
+
+async function saveNSProfile(){
+  const name=document.getElementById("profileName").value.trim();
+  const bio=document.getElementById("profileBio").value.trim();
+  const userId=Number(localStorage.getItem("ns_user_id") || 1);
+
+  if(!name){
+    document.getElementById("profileMsg").innerText="नाम डालें";
+    return;
+  }
+
+  try{
+    const r=await fetch(NS_API+"/api/profile/"+userId,{
+      method:"PUT",
+      headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({name:name,bio:bio})
+    });
+
+    const data=await r.json();
+
+    if(!data.ok){
+      document.getElementById("profileMsg").innerText=
+        data.message || "Profile save नहीं हुई";
+      return;
+    }
+
+    localStorage.setItem("ns_name",name);
+    localStorage.setItem("ns_bio",bio);
+
+    document.getElementById("profileMsg").innerText=
+      "Profile server पर save ✓";
+
+    if(document.getElementById("profileDisplayName"))
+      document.getElementById("profileDisplayName").innerText=name;
+
+  }catch(e){
+    console.error("Profile save error:",e);
+    document.getElementById("profileMsg").innerText=
+      "Server से connection नहीं हो पाया";
+  }
+}
+
+
+async function createNSPost(){
+  const input = document.getElementById("postText");
+  const media = document.getElementById("postMedia");
+  const type = document.getElementById("postType").value;
+  const userId = localStorage.getItem("ns_user_id") || "1";
+
+  if(!input){
+    alert("Post box नहीं मिला");
+    return;
+  }
+
+  const text = input.value.trim();
+
+  if(!text){
+    alert("पहले Post में कुछ लिखें");
+    input.focus();
+    return;
+  }
+
+  try {
+    let mediaPath = "";
+
+    /* पहले media server पर upload */
+    if(media && media.files && media.files[0]){
+      const file = media.files[0];
+
+      const form = new FormData();
+      form.append("user_id", userId);
+      form.append("file", file);
+
+      const uploadResponse = await fetch(
+        "http://127.0.0.1:5007/api/upload",
+        {
+          method: "POST",
+          body: form
+        }
+      );
+
+      const uploadData = await uploadResponse.json();
+
+      if(!uploadData.ok){
+        alert(uploadData.message || "Media upload failed");
+        return;
+      }
+
+      mediaPath = uploadData.media;
+    }
+
+    /* अब Post/Reel database में save */
+    const response = await fetch(
+      "http://127.0.0.1:5007/api/posts",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          user_id: Number(userId),
+          caption: text,
+          media: mediaPath,
+          media_type: type
+        })
+      }
+    );
+
+    const data = await response.json();
+
+    if(!data.ok){
+      alert(data.message || "Post/Reel save नहीं हुआ");
+      return;
+    }
+
+    input.value = "";
+    if(media) media.value = "";
+
+    alert(
+      type === "reel"
+        ? "Reel successfully added ✓"
+        : "Post successfully added ✓"
+    );
+
+    if(typeof showRealReels === "function"){
+      showRealReels();
+    }
+
+  } catch(e) {
+    console.error(e);
+    alert("Server से connection नहीं हो पाया");
+  }
+}
+
+async function showNSPosts(){
+  const box = document.getElementById("nsPostList");
+  if(!box) return;
+
+  try {
+    const r = await fetch(NS_API + "/api/posts");
+    const data = await r.json();
+
+    if(!data.ok || !data.posts || !data.posts.length){
+      box.innerHTML = "<p>अभी कोई Post नहीं है।</p>";
+      return;
+    }
+
+    box.innerHTML = data.posts.map(p => `
+      <div style="background:white;padding:14px;margin:10px 0;border-radius:14px;">
+        <b>${p.name || "NS User"}</b>
+        <small style="display:block;color:#777;">
+          ${p.media_type === "reel" ? "🎬 Reel" : "📸 Post"} • ${p.created_at || ""}
+        </small>
+        <p>${p.caption || ""}</p>
+
+        ${p.media ? (
+          p.media.match(/\.(mp4|webm|mov)$/i)
+          ? `<video src="${p.media}" controls style="width:100%;max-height:450px;border-radius:12px;"></video>`
+          : `<img src="${p.media}" style="width:100%;max-height:450px;object-fit:contain;border-radius:12px;">`
+        ) : ""}
+
+        <br>
+        <button onclick="likeNSPost(${p.id})">♥ Like ${p.likes || 0}</button>
+        <button onclick="commentNSPost(${p.id})">💬 Comment</button>
+      </div>
+    `).join("");
+
+  } catch(e) {
+    console.error("Posts load error:", e);
+    box.innerHTML = "<p>Server से Posts load नहीं हो पाए।</p>";
+  }
+}
+
+// ===== NS-MASTER REAL FEATURES BRIDGE =====
+const NS_API = "http://127.0.0.1:5007";
+
+async function loadRealReels() {
+  try {
+    const r = await fetch(NS_API + "/api/reels");
+    const data = await r.json();
+    console.log("REAL REELS:", data);
+    return data.reels || [];
+  } catch (e) {
+    console.error("Reels load error:", e);
+    return [];
+  }
+}
+
+async function addRealComment(postId, userId, text) {
+  try {
+    const r = await fetch(NS_API + "/api/comments", {
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({
+        post_id: postId,
+        user_id: userId,
+        text: text
+      })
+    });
+    return await r.json();
+  } catch (e) {
+    console.error("Comment error:", e);
+    return {ok:false};
+  }
+}
+
+async function loadRealComments(postId) {
+  try {
+    const r = await fetch(NS_API + "/api/comments/" + postId);
+    const data = await r.json();
+    return data.comments || [];
+  } catch (e) {
+    console.error("Comments load error:", e);
+    return [];
+  }
+}
+
+async function loadRealNotifications(userId) {
+  try {
+    const r = await fetch(NS_API + "/api/notifications/" + userId);
+    const data = await r.json();
+    return data.notifications || [];
+  } catch (e) {
+    console.error("Notifications error:", e);
+    return [];
+  }
+}
+
+async function loadUnreadNotifications(userId) {
+  try {
+    const r = await fetch(NS_API + "/api/notifications/unread-count/" + userId);
+    const data = await r.json();
+    return data.count || 0;
+  } catch (e) {
+    return 0;
+  }
+}
+
+async function updateRealProfilePhoto(userId, photo) {
+  try {
+    const r = await fetch(NS_API + "/api/profile-photo", {
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({
+        user_id: userId,
+        profile_photo: photo
+      })
+    });
+    return await r.json();
+  } catch (e) {
+    return {ok:false};
+  }
+}
+
+console.log("NS-MASTER REAL FEATURES BRIDGE READY");
+</script>
+
+
+<script>
+/* ===== REAL REELS UI ===== */
+
+async function showRealReels() {
+  const box = document.getElementById("realReelsList");
+  if (!box) return;
+
+  box.innerHTML = "<p>Reels loading...</p>";
+
+  try {
+    const r = await fetch("http://127.0.0.1:5007/api/reels");
+    const data = await r.json();
+
+    if (!data.ok || !data.reels.length) {
+      box.innerHTML = "<p>No Reels yet 🎬</p>";
+      return;
+    }
+
+    box.innerHTML = data.reels.map(reel => `
+      <div style="background:white;padding:14px;margin:10px 0;border-radius:14px;">
+        <b>${reel.name || "NS User"}</b>
+        <small style="display:block;color:#777;">
+          🎬 Reel • ${reel.created_at || ""}
+        </small>
+
+        <p>${reel.caption || ""}</p>
+
+        <video
+          src="${reel.media}"
+          controls
+          playsinline
+          style="width:100%;max-height:500px;border-radius:12px;">
+        </video>
+
+        <div style="margin-top:8px;">
+          <button onclick="realReelLike(${reel.id})">♡ Like</button>
+          <button onclick="realReelComment(${reel.id})">💬 Comment</button>
+        </div>
+      </div>
+    `).join("");
+
+  } catch (e) {
+    console.error(e);
+    box.innerHTML = "<p>Reels load नहीं हो पाए।</p>";
+  }
+}
+
+async function realReelLike(postId) {
+  const userId =
+    localStorage.getItem("ns_user_id") ||
+    localStorage.getItem("user_id");
+
+  if (!userId) {
+    alert("पहले login करें");
+    return;
+  }
+
+  try {
+    const r = await fetch("http://127.0.0.1:5007/api/like", {
+      method: "POST",
+      headers: {"Content-Type":"application/json"},
+      body: JSON.stringify({
+        user_id: Number(userId),
+        post_id: Number(postId)
+      })
+    });
+
+    const data = await r.json();
+    console.log("REEL LIKE:", data);
+    showRealReels();
+  } catch (e) {
+    console.error(e);
+  }
+}
+
+async function realReelComment(postId) {
+  const userId =
+    localStorage.getItem("ns_user_id") ||
+    localStorage.getItem("user_id");
+
+  if (!userId) {
+    alert("पहले login करें");
+    return;
+  }
+
+  const text = prompt("Comment लिखें:");
+
+  if (!text || !text.trim()) return;
+
+  const r = await fetch("http://127.0.0.1:5007/api/comments", {
+    method: "POST",
+    headers: {"Content-Type":"application/json"},
+    body: JSON.stringify({
+      post_id: Number(postId),
+      user_id: Number(userId),
+      text: text.trim()
+    })
+  });
+
+  const data = await r.json();
+  console.log("REEL COMMENT:", data);
+
+  if (data.ok) {
+    alert("Comment added ✓");
+  }
+}
+</script>
+
+</body>
+</html>
