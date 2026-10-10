@@ -69,7 +69,18 @@ def home():
 
 @app.route("/uploads/<path:filename>")
 def uploaded_file(filename):
-    return send_file(os.path.join(app.config["UPLOAD_FOLDER"], filename))
+    upload_root = os.path.realpath(app.config["UPLOAD_FOLDER"])
+    file_path = os.path.realpath(os.path.join(upload_root, filename))
+
+    # Upload folder ke bahar ki files access na hon
+    if not file_path.startswith(upload_root + os.sep):
+        return jsonify({"ok": False, "error": "Invalid file path"}), 400
+
+    # File nahi hai to 500 ke bajay 404
+    if not os.path.isfile(file_path):
+        return jsonify({"ok": False, "error": "Media file not found"}), 404
+
+    return send_file(file_path)
 
 @app.route("/api/health")
 def health():
@@ -169,6 +180,16 @@ def login_api():
             "created_at": user["created_at"]
         }
     })
+
+
+@app.route("/api/user-count", methods=["GET"])
+def user_count():
+    conn = sqlite3.connect(DB)
+    try:
+        count = conn.execute("SELECT COUNT(*) FROM users").fetchone()[0]
+        return jsonify({"ok": True, "registered_users": count})
+    finally:
+        conn.close()
 
 
 @app.route("/api/profile/<int:user_id>", methods=["GET", "PUT"])

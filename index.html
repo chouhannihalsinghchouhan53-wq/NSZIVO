@@ -295,6 +295,13 @@ nav#bottomNav{
 <div class="story"><div class="circle">P</div>Pooja</div>
 </div>
 
+<div id="nsUserSearch" style="padding:12px;margin:10px;background:#f5f7fb;border-radius:12px;">
+  <b>🔍 Search Users</b>
+  <p id="nsUserCount" style="margin:6px 0;color:#555;">कुल यूज़र: लोड हो रहे हैं...</p>
+  <input id="nsUserSearchInput" type="search" placeholder="नाम या username खोजें" oninput="filterNSUsers()" style="width:100%;padding:12px;border:1px solid #ccc;border-radius:8px;">
+  <div id="nsUserSearchResults" style="margin-top:8px;"></div>
+</div>
+
 <div id="nsPostList" style="padding:10px;"></div>
 <script>document.addEventListener("DOMContentLoaded",function(){if(typeof showNSPosts==="function")showNSPosts();});</script>
 
@@ -1218,6 +1225,71 @@ async function realReelComment(postId) {
     alert("Comment added ✓");
   }
 }
+</script>
+
+
+<script>
+let nsSearchUsers = [];
+
+async function loadNSUserSearch() {
+  const countBox = document.getElementById("nsUserCount");
+  const resultsBox = document.getElementById("nsUserSearchResults");
+  if (!countBox || !resultsBox) return;
+
+  try {
+    const response = await fetch("/api/users");
+    const data = await response.json();
+
+    if (!data.ok || !Array.isArray(data.users)) {
+      countBox.textContent = "यूज़र सूची लोड नहीं हुई";
+      return;
+    }
+
+    nsSearchUsers = data.users;
+    countBox.textContent = "कुल रजिस्टर्ड यूज़र: " + nsSearchUsers.length;
+    filterNSUsers();
+  } catch (error) {
+    countBox.textContent = "यूज़र सूची लोड नहीं हुई";
+    console.error("NS user search:", error);
+  }
+}
+
+function filterNSUsers() {
+  const input = document.getElementById("nsUserSearchInput");
+  const box = document.getElementById("nsUserSearchResults");
+  if (!input || !box) return;
+
+  const query = input.value.trim().toLowerCase();
+  const matches = nsSearchUsers.filter(user =>
+    String(user.name || "").toLowerCase().includes(query) ||
+    String(user.username || "").toLowerCase().includes(query)
+  ).slice(0, 20);
+
+  if (!matches.length) {
+    box.textContent = query ? "कोई यूज़र नहीं मिला" : "अभी कोई यूज़र नहीं है";
+    return;
+  }
+
+  box.replaceChildren();
+  matches.forEach(user => {
+    const item = document.createElement("div");
+    item.style.cssText = "padding:10px;background:white;border-radius:8px;margin:6px 0;border:1px solid #e3e6eb;";
+    const name = document.createElement("b");
+    name.textContent = user.name || "NS User";
+    item.appendChild(name);
+
+    if (user.username) {
+      const username = document.createElement("div");
+      username.style.cssText = "font-size:13px;color:#666;margin-top:3px;";
+      username.textContent = "@" + user.username;
+      item.appendChild(username);
+    }
+
+    box.appendChild(item);
+  });
+}
+
+document.addEventListener("DOMContentLoaded", loadNSUserSearch);
 </script>
 
 </body>
