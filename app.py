@@ -991,7 +991,12 @@ def get_reels():
                users.profile_photo
         FROM posts
         LEFT JOIN users ON users.id = posts.user_id
-        WHERE posts.media_type = 'reel'
+        WHERE (
+            posts.media_type = 'reel'
+            OR LOWER(COALESCE(posts.media, '')) LIKE '%.mp4'
+            OR LOWER(COALESCE(posts.media, '')) LIKE '%.webm'
+            OR LOWER(COALESCE(posts.media, '')) LIKE '%.mov'
+        )
         ORDER BY posts.id DESC
     """).fetchall()
 
