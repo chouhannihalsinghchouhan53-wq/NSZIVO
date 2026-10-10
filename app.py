@@ -45,6 +45,12 @@ def init_db():
 
     cur.execute("PRAGMA table_info(users)")
     user_columns = {row[1] for row in cur.fetchall()}
+
+    if "bio" not in user_columns:
+        cur.execute("ALTER TABLE users ADD COLUMN bio TEXT")
+
+    if "password_hash" not in user_columns:
+        cur.execute("ALTER TABLE users ADD COLUMN password_hash TEXT")
     if "profile_photo" not in user_columns:
         cur.execute("ALTER TABLE users ADD COLUMN profile_photo TEXT")
 
