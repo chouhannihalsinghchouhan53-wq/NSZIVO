@@ -331,7 +331,7 @@ nav#bottomNav{
 <script>
 async function loadNSWallet(){
   try{
-    const res = await fetch("http://127.0.0.1:5007/api/wallet/" + (Number(localStorage.getItem("ns_user_id")) || 1));
+    const res = await fetch("/api/wallet/" + (Number(localStorage.getItem("ns_user_id")) || 1));
     const data = await res.json();
 
     if(data.ok && data.wallet){
@@ -383,7 +383,7 @@ async function addNSEarning(){
   }
 
   try{
-    const res = await fetch("http://127.0.0.1:5007/api/earning", {
+    const res = await fetch("/api/earning", {
       method:"POST",
       headers:{"Content-Type":"application/json"},
       body:JSON.stringify({
@@ -433,7 +433,7 @@ async function requestNSWithdrawal(){
   }
 
   try{
-    const res = await fetch("http://127.0.0.1:5007/api/withdraw", {
+    const res = await fetch("/api/withdraw", {
       method: "POST",
       headers: {"Content-Type":"application/json"},
       body: JSON.stringify({
@@ -630,7 +630,7 @@ async function loadMyRealPosts(){
   const myId=localStorage.getItem("ns_user_id") || "1";
 
   try{
-    const r=await fetch("http://127.0.0.1:5007/api/posts");
+    const r=await fetch("/api/posts");
     const data=await r.json();
 
     if(!data.ok) return;
@@ -928,7 +928,7 @@ async function createNSPost(){
       form.append("file", file);
 
       const uploadResponse = await fetch(
-        "http://127.0.0.1:5007/api/upload",
+        "/api/upload",
         {
           method: "POST",
           body: form
@@ -947,7 +947,7 @@ async function createNSPost(){
 
     /* अब Post/Reel database में save */
     const response = await fetch(
-      "http://127.0.0.1:5007/api/posts",
+      "/api/posts",
       {
         method: "POST",
         headers: {
@@ -1028,7 +1028,7 @@ async function showNSPosts(){
 }
 
 // ===== NS-MASTER REAL FEATURES BRIDGE =====
-const NS_API = "http://127.0.0.1:5007";
+const NS_API = "";
 
 async function loadRealReels() {
   try {
@@ -1122,7 +1122,7 @@ async function showRealReels() {
   box.innerHTML = "<p>Reels loading...</p>";
 
   try {
-    const r = await fetch("http://127.0.0.1:5007/api/reels");
+    const r = await fetch("/api/reels");
     const data = await r.json();
 
     if (!data.ok || !data.reels.length) {
@@ -1170,7 +1170,7 @@ async function realReelLike(postId) {
   }
 
   try {
-    const r = await fetch("http://127.0.0.1:5007/api/like", {
+    const r = await fetch("/api/like", {
       method: "POST",
       headers: {"Content-Type":"application/json"},
       body: JSON.stringify({
@@ -1201,7 +1201,7 @@ async function realReelComment(postId) {
 
   if (!text || !text.trim()) return;
 
-  const r = await fetch("http://127.0.0.1:5007/api/comments", {
+  const r = await fetch("/api/comments", {
     method: "POST",
     headers: {"Content-Type":"application/json"},
     body: JSON.stringify({
