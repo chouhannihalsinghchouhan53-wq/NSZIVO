@@ -33,9 +33,20 @@ def init_db():
         user_id INTEGER NOT NULL,
         caption TEXT,
         media TEXT,
-        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        media_type TEXT DEFAULT 'post'
     )
     """)
+
+    cur.execute("PRAGMA table_info(posts)")
+    post_columns = {row[1] for row in cur.fetchall()}
+    if "media_type" not in post_columns:
+        cur.execute("ALTER TABLE posts ADD COLUMN media_type TEXT DEFAULT 'post'")
+
+    cur.execute("PRAGMA table_info(users)")
+    user_columns = {row[1] for row in cur.fetchall()}
+    if "profile_photo" not in user_columns:
+        cur.execute("ALTER TABLE users ADD COLUMN profile_photo TEXT")
 
     cur.execute("""
     CREATE TABLE IF NOT EXISTS follows (
