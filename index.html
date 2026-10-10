@@ -476,7 +476,8 @@ async function requestNSWithdrawal(){
     <option value="post">📸 Post</option>
     <option value="reel">🎬 Reel</option>
   </select>
-  <input id="postMedia" type="file" accept="image/*,video/*" style="width:100%;margin:10px 0;">
+  <label for="postMedia" style="display:block;padding:14px;margin:12px 0;background:#f0f0f0;border:2px dashed #777;border-radius:10px;text-align:center;font-size:16px;cursor:pointer;">📷 Photo / 🎬 Video चुनें</label>
+  <input id="postMedia" type="file" accept="image/*,video/*" style="display:block;width:100%;min-height:48px;margin:10px 0;padding:8px;box-sizing:border-box;">
   <button onclick="createNSPost()" style="padding:12px 20px;">Publish</button>
 </div>
 
@@ -1290,6 +1291,109 @@ function filterNSUsers() {
 }
 
 document.addEventListener("DOMContentLoaded", loadNSUserSearch);
+</script>
+
+
+<script>
+// NSZIVO_AUTH_FIX_V1
+window.showLogin = function () {
+  document.getElementById("signupScreen").classList.add("hidden");
+  document.getElementById("app").classList.add("hidden");
+  document.getElementById("login").classList.remove("hidden");
+};
+
+window.showSignup = function () {
+  document.getElementById("login").classList.add("hidden");
+  document.getElementById("app").classList.add("hidden");
+  document.getElementById("signupScreen").classList.remove("hidden");
+};
+
+window.signup = async function () {
+  const name = document.getElementById("name").value.trim();
+  const mobile = document.getElementById("signupMobile").value.trim();
+  const password = document.getElementById("signupPassword").value;
+
+  if (!name || !mobile || !password) {
+    alert("Naam, mobile number aur password bharein.");
+    return;
+  }
+
+  try {
+    const response = await fetch("/api/register", {
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({name, mobile, password})
+    });
+    const data = await response.json();
+
+    if (!response.ok || !data.ok || !data.user_id) {
+      alert(data.message || "Account nahi ban saka. Dobara check karein.");
+      return;
+    }
+
+    localStorage.setItem("ns_user_id", String(data.user_id));
+    localStorage.setItem("ns_user_name", name);
+    openApp(name);
+
+    if (typeof showNSPosts === "function") showNSPosts();
+    if (typeof loadNSUserSearch === "function") loadNSUserSearch();
+    alert("Account ban gaya! NSZivo mein aapka swagat hai.");
+  } catch (error) {
+    console.error("Signup error:", error);
+    alert("Server se connection nahi ho paya.");
+  }
+};
+
+window.login = async function () {
+  const mobile = document.getElementById("loginMobile").value.trim();
+  const password = document.getElementById("loginPassword").value;
+
+  if (!mobile || !password) {
+    alert("Mobile number aur password bharein.");
+    return;
+  }
+
+  try {
+    const response = await fetch("/api/login", {
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({mobile, password})
+    });
+    const data = await response.json();
+
+    if (!response.ok || !data.ok || !data.user || !data.user.id) {
+      alert(data.message || "Login nahi ho saka.");
+      return;
+    }
+
+    localStorage.setItem("ns_user_id", String(data.user.id));
+    localStorage.setItem("ns_user_name", data.user.name || "NSZivo User");
+    openApp(data.user.name || "NSZivo User");
+
+    if (typeof showNSPosts === "function") showNSPosts();
+    if (typeof loadNSUserSearch === "function") loadNSUserSearch();
+    alert("Login successful!");
+  } catch (error) {
+    console.error("Login error:", error);
+    alert("Server se connection nahi ho paya.");
+  }
+};
+
+document.addEventListener("DOMContentLoaded", function () {
+  const header = document.querySelector("header");
+  const icons = header && header.querySelector(".icons");
+
+  if (icons && !document.getElementById("nsAccountButton")) {
+    const button = document.createElement("button");
+    button.id = "nsAccountButton";
+    button.type = "button";
+    button.textContent = "Account";
+    button.style.cssText =
+      "margin-left:8px;padding:6px 10px;border:1px solid #1769e0;border-radius:8px;background:white;color:#1769e0;font-size:13px;";
+    button.onclick = window.showLogin;
+    icons.appendChild(button);
+  }
+});
 </script>
 
 </body>
